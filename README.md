@@ -27,16 +27,16 @@ performance critical code, you're probably better off using another library.
 			$ mkdir -p ~/dev/
 			$ cd ~/dev/
 		```
-```bash
-	$ git clone https://github.com/[github username]/tunl.git
-```
-For example, I would type
-```bash
-	$ git clone https://github.com/TheLandfill/tunl.git
-```
-since my username is TheLandfill and someone with the username `password` would
-type
-```bash
-	$ git clone https://github.com/password/tunl.git
-```
+	```bash
+		$ git clone https://github.com/[github username]/tunl.git
+	```
+	For example, I would type
+	```bash
+		$ git clone https://github.com/TheLandfill/tunl.git
+	```
+	since my username is TheLandfill and someone with the username `password` would
+	type
+	```bash
+		$ git clone https://github.com/password/tunl.git
+	```
 1.  You should now have downloaded the project and are ready to work on it.
