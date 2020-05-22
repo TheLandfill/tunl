@@ -39,4 +39,8 @@ performance critical code, you're probably better off using another library.
 	```bash
 		$ git clone https://github.com/password/tunl.git
 	```
-1.  You should now have downloaded the project and are ready to work on it.
+1.  You should now have downloaded the project and are ready to work on it. If
+	you're on Windows, you'll find the project files in the directory
+	C:\Users\[user]\dev\tunl\ on Windows and you'll find them in
+	~/win-home/dev/tunl/ in the Terminal App (probably Ubuntu). If you're on Mac
+	or Linux, then they'll be in ~/dev/tunl, a.k.a. /home/[user]/dev/tunl.
