@@ -27,6 +27,7 @@ performance critical code, you're probably better off using another library.
 			$ mkdir -p ~/dev/
 			$ cd ~/dev/
 		```
+	Then type the following command on Windows, MacOS, or Linux.
 	```bash
 		$ git clone https://github.com/[github username]/tunl.git
 	```
