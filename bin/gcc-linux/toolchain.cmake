@@ -13,5 +13,5 @@ add_compile_options(
 	"$<$<CONFIG:DEBUG>:-g>"
 )
 add_link_options(
-	"$<$<CONFIG:RELEASE>:-Wl,--gc-sections"
+	"$<$<CONFIG:RELEASE>:-Wl,--gc-sections>"
 )
