@@ -3,3 +3,5 @@ obj/
 libs/*
 Debug/
 Release/
+bin/Debug
+bin/Release

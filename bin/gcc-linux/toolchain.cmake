@@ -12,3 +12,6 @@ add_compile_options(
 	"$<$<CONFIG:DEBUG>:-O0>"
 	"$<$<CONFIG:DEBUG>:-g>"
 )
+add_link_options(
+	"$<$<CONFIG:RELEASE>:-Wl,--gc-sections"
+)
