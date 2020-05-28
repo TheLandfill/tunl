@@ -12,11 +12,14 @@ public:
 	T operator-(const T& n) const {
 		return this->subtract(n);
 	}
+	T operator-() const {
+		return this->invert();
+	}
 	T & operator+=(const T& n) {
-		this->add_eq(n);
+		return this->add_eq(n);
 	}
 	T & operator-=(const T& n) {
-		this->subtract_eq(n);
+		return this->subtract_eq(n);
 	}
 };
 
@@ -27,7 +30,7 @@ public:
 		return this->multiply(n);
 	}
 	T & operator*=(const T& n) {
-		this->multiply_eq(n);
+		return this->multiply_eq(n);
 	}
 };
 
@@ -38,7 +41,7 @@ public:
 		return this->divide(n);
 	}
 	T & operator/=(const T& n) {
-		this->divide_eq(n);
+		return this->divide_eq(n);
 	}
 };
 

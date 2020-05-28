@@ -3,12 +3,14 @@
 #include "real.h"
 #include <cstddef>
 
+namespace tunl {
+
 struct Simpson_Points {
 public:
-	real start;
-	real dx;
+	builtin_real start;
+	builtin_real dx;
 	const size_t n;
-	Simpson_Points(real a, real b, size_t n);
+	Simpson_Points(builtin_real a, builtin_real b, size_t n);
 };
 
 template <typename T>
@@ -21,8 +23,8 @@ public:
 
 template <typename T, typename FuncType>
 T simpson_rule(FuncType f, const Simpson_Points & sp, Simpson_Sums<T>& ss) {
-	real cur_x = sp.start;
-	real dx = sp.dx * 0.5;
+	builtin_real cur_x = sp.start;
+	builtin_real dx = sp.dx * 0.5;
 
 	f(ss.value_holder, cur_x);
 	ss.trapezoid_sum += 0.5 * ss.value_holder;
@@ -49,8 +51,10 @@ T simpson_rule(FuncType f, const Simpson_Points & sp, Simpson_Sums<T>& ss) {
 	f(ss.value_holder, cur_x);
 	ss.trapezoid_sum += 0.5 * ss.value_holder;
 
-	const real ONE_THIRD = 1.0 / 3.0;
+	const builtin_real ONE_THIRD = 1.0 / 3.0;
 	return (2.0 * ss.midpoint_sum + ss.trapezoid_sum) * ONE_THIRD * sp.dx;
+}
+
 }
 
 #endif

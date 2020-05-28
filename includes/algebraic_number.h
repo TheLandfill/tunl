@@ -1,6 +1,6 @@
 #ifndef TUNL_ALGEBRAIC_NUMBER_H
 #define TUNL_ALGEBRAIC_NUMBER_H
-#include "number.h"
+#include "algebraic_structure.h"
 #include "integer.h"
 #include "rational.h"
 
@@ -15,6 +15,12 @@ public:
 };
 
 Algebraic root(const Algebraic& x, Rational r);
+
+Algebraic operator*(const Rational& i, const Algebraic& r);
+Algebraic operator*(const Algebraic& r, const Rational& i);
+
+Algebraic operator/(const Rational& i, const Algebraic& r);
+Algebraic operator/(const Algebraic& r, const Rational& i);
 
 }
 
