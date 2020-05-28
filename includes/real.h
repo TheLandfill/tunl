@@ -7,4 +7,6 @@ typedef __float128 real;
 typedef long double real;
 #endif
 
+class Real;
+
 #endif
