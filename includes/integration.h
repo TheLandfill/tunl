@@ -1,5 +1,5 @@
-#ifndef INTEGRATION_H
-#define INTEGRATION_H
+#ifndef TUNL_INTEGRATION_H
+#define TUNL_INTEGRATION_H
 #include "real.h"
 #include <cstddef>
 
