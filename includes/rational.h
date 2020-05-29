@@ -14,6 +14,7 @@ public:
 };
 
 Rational operator*(const Rational& i, const Rational& r);
+Rational operator/(const Rational& i, const Rational& r);
 
 Rational operator*(const Integer& i, const Rational& r);
 Rational operator*(const Rational& r, const Integer& i);
