@@ -42,7 +42,7 @@ Complex<Integer> operator*(const Complex<Integer>& c, const Integer& n) {
 }
 
 Complex<Integer> operator*(const Integer& n, const Complex<Integer>& c) {
-	return Complex<Integer>(c.real * n, c.imag * n);
+	return c * n;
 }
 
 Complex<Rational> operator*(const Complex<Integer>& c, const Rational& n){
@@ -50,27 +50,50 @@ Complex<Rational> operator*(const Complex<Integer>& c, const Rational& n){
 }
 
 Complex<Rational> operator*(const Rational& n, const Complex<Integer>& c){
+	return c * n;
+}
+
+Complex<Rational> operator/(const Complex<Integer>& c, const Integer& n) {
+	return Complex<Rational>(c.real / n, c.imag / n);
+}
+
+Complex<Rational> operator/(const Complex<Integer>& numerator, const Complex<Integer>& denominator) {
+	return numerator * denominator.conj() / denominator.square_magnitude();
+}
+
+
+
+Complex<Rational> operator*(const Complex<Rational>& c, const Rational& n) {
 	return Complex<Rational>(c.real * n, c.imag * n);
 }
 
-Complex<Rational> operator/(const Complex<Integer>& c, const Integer& n){
+Complex<Rational> operator/(const Complex<Rational>& c, const Rational& n) {
 	return Complex<Rational>(c.real / n, c.imag / n);
 }
 
-Complex<Rational> operator/(const Complex<Integer>& c, const Rational& n){
-	return Complex<Rational>(c.real / n, c.imag / n);
+Complex<Rational> operator*(const Rational& n, const Complex<Rational>& c) {
+	return c * n;
 }
 
-Complex<Algebraic> operator*(const Complex<Integer>& c, const Algebraic& n){
+Complex<Rational> operator/(const Rational& n, const Complex<Rational>& c) {
+	return n * c.conj() / c.square_magnitude();
+}
+
+
+Complex<Algebraic> operator*(const Complex<Algebraic>& c, const Algebraic& n) {
 	return Complex<Algebraic>(c.real * n, c.imag * n);
 }
 
-Complex<Algebraic> operator/(const Complex<Integer>& c, const Algebraic& n){
+Complex<Algebraic> operator/(const Complex<Algebraic>& c, const Algebraic& n) {
 	return Complex<Algebraic>(c.real / n, c.imag / n);
 }
 
-Complex<Rational> operator/(const Complex<Integer>& numerator, const Complex<Integer>& denominator){
-	return numerator * denominator.conj() / denominator.square_magnitude();
+Complex<Algebraic> operator*(const Algebraic& n, const Complex<Algebraic>& c) {
+	return c * n;
+}
+
+Complex<Algebraic> operator/(const Algebraic& n, const Complex<Algebraic>& c) {
+	return n * c.conj() / c.square_magnitude();
 }
 
 }

@@ -13,7 +13,7 @@ namespace tunl {
 template<typename T> class Complex;
 
 template<typename T>
-class Complex_Base : public Ring<Complex<T>> {
+class Complex_Base {
 private:
 	Complex<T> add(const Complex<T>& n) const;
 	Complex<T> subtract(const Complex<T>& n) const;
@@ -110,7 +110,10 @@ Complex<T>::Complex(Complex_Base<T> c) : Complex_Base<T>(c.real, c.imag) {}
 //                         Template Specializations                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-template<> class Complex<Integer> : public Complex_Base<Integer> {
+template<> class Complex<Integer> :
+	public Complex_Base<Integer>,
+	public Ring<Complex<Integer>>
+{
 public:
 	Complex(const Integer real, const Integer imag);
 
@@ -123,24 +126,26 @@ public:
 
 Complex<Integer> operator*(const Complex<Integer>& c, const Integer& n);
 Complex<Integer> operator*(const Integer& n, const Complex<Integer>& c);
-
-Complex<Rational> operator/(const Complex<Integer>& c, const Integer& n);
-
 Complex<Rational> operator*(const Complex<Integer>& c, const Rational& n);
 Complex<Rational> operator*(const Rational& n, const Complex<Integer>& c);
-Complex<Rational> operator/(const Complex<Integer>& c, const Rational& n);
 
-Complex<Algebraic> operator*(const Complex<Integer>& c, const Algebraic& n);
-Complex<Algebraic> operator/(const Complex<Integer>& c, const Algebraic& n);
+Complex<Rational> operator/(const Complex<Integer>& c, const Integer& n);
+//Complex<Rational> operator/(const Complex<Integer>& c, const Rational& n);
+//Complex<Algebraic> operator*(const Complex<Integer>& c, const Algebraic& n);
+//Complex<Algebraic> operator/(const Complex<Integer>& c, const Algebraic& n);
 
 Complex<Rational> operator/(const Complex<Integer>& numerator, const Complex<Integer>& denominator);
 
-template<> class Complex<Rational> : public Complex_Base<Rational>, Field<Complex<Rational>> {
+template<> class Complex<Rational> :
+	public Complex_Base<Rational>,
+	public Field<Complex<Rational>>
+{
 private:
 	Complex<Rational> divide(const Complex<Rational>& n) const;
 	void divide_eq(const Complex<Rational>& n) const;
 public:
 	Complex(const Rational real, const Rational imag);
+	Complex(const Complex<Integer> c);
 
 	Rational square_magnitude() const;
 	Algebraic magnitude() const;
@@ -148,20 +153,29 @@ public:
 
 	void operator*=(const Rational& n);
 	void operator/=(const Rational& n);
-
-	Complex<Rational> operator*(const Rational& n) const;
-	Complex<Rational> operator/(const Rational& n) const;
-
-	Complex<Algebraic> operator*(const Algebraic& n) const;
-	Complex<Algebraic> operator/(const Algebraic& n) const;
 };
 
-template<> class Complex<Algebraic> : public Complex_Base<Algebraic>, Field<Complex<Algebraic>> {
+Complex<Rational> operator*(const Complex<Rational>& c, const Rational& n);
+Complex<Rational> operator/(const Complex<Rational>& c, const Rational& n);
+Complex<Rational> operator*(const Rational& n, const Complex<Rational>& c);
+Complex<Rational> operator/(const Rational& n, const Complex<Rational>& c);
+
+//Complex<Algebraic> operator*(const Complex<Rational>& c, const Algebraic& n);
+//Complex<Algebraic> operator/(const Complex<Rational>& c, const Algebraic& n);
+//Complex<Algebraic> operator*(const Algebraic& n, const Complex<Rational>& c);
+//Complex<Algebraic> operator/(const Algebraic& n, const Complex<Rational>& c);
+
+template<> class Complex<Algebraic> :
+	public Complex_Base<Algebraic>,
+	public Field<Complex<Algebraic>>
+{
 private:
 	Complex<Algebraic> divide(const Complex<Algebraic>& n) const;
 	void divide_eq(const Complex<Algebraic>& n) const;
 public:
 	Complex(const Algebraic real, const Algebraic imag);
+	Complex(const Complex<Integer> c);
+	Complex(const Complex<Rational> c);
 
 	Algebraic square_magnitude() const;
 	Algebraic magnitude() const;
@@ -175,8 +189,13 @@ public:
 
 Complex<Algebraic> operator*(const Complex<Algebraic>& c, const Algebraic& n);
 Complex<Algebraic> operator/(const Complex<Algebraic>& c, const Algebraic& n);
+Complex<Algebraic> operator*(const Algebraic& n, const Complex<Algebraic>& c);
+Complex<Algebraic> operator/(const Algebraic& n, const Complex<Algebraic>& c);
 
-template<> class Complex<Floating_Point> : public Field<Complex<Floating_Point>> {
+template<> class Complex<Floating_Point> :
+	public Complex_Base<Floating_Point>,
+	public Field<Complex<Floating_Point>>
+{
 public:
 	Floating_Point real, imag;
 private:
@@ -184,6 +203,9 @@ private:
 	void divide_eq(const Complex<Floating_Point>& n) const;
 public:
 	Complex(Floating_Point real, Floating_Point imag);
+	Complex(const Complex<Integer> c);
+	Complex(const Complex<Rational> c);
+	Complex(const Complex<Algebraic> c);
 
 	Floating_Point magnitude() const;
 	Floating_Point square_magnitude() const;
