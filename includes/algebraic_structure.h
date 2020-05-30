@@ -7,19 +7,19 @@ template<typename T>
 class Group {
 public:
 	T operator+(const T& n) const {
-		return this->add(n);
+		return static_cast<const T*>(this)->add(n);
 	}
 	T operator-(const T& n) const {
-		return this->subtract(n);
+		return static_cast<const T*>(this)->sub(n);
 	}
 	T operator-() const {
-		return this->invert();
+		return static_cast<const T*>(this)->neg();
 	}
 	T & operator+=(const T& n) {
-		return this->add_eq(n);
+		return static_cast<T*>(this)->add_eq(n);
 	}
 	T & operator-=(const T& n) {
-		return this->subtract_eq(n);
+		return static_cast<T*>(this)->sub_eq(n);
 	}
 };
 
@@ -27,10 +27,10 @@ template<typename T>
 class Ring : public Group<T> {
 public:
 	T operator*(const T& n) const {
-		return this->multiply(n);
+		return static_cast<const T*>(this)->mul(n);
 	}
 	T & operator*=(const T& n) {
-		return this->multiply_eq(n);
+		return static_cast<T*>(this)->mul_eq(n);
 	}
 };
 
@@ -38,10 +38,10 @@ template<typename T>
 class Field : public Ring<T> {
 public:
 	T operator/(const T& n) const {
-		return this->divide(n);
+		return static_cast<const T*>(this)->div(n);
 	}
 	T & operator/=(const T& n) {
-		return this->divide_eq(n);
+		return static_cast<T*>(this)->div_eq(n);
 	}
 };
 
