@@ -14,20 +14,20 @@ template<typename T> class Complex;
 
 template<typename T>
 class Complex_Base {
-private:
+public:
 	Complex<T> add(const Complex<T>& n) const;
-	Complex<T> subtract(const Complex<T>& n) const;
-	Complex<T> multiply(const Complex<T>& n) const;
+	Complex<T> sub(const Complex<T>& n) const;
+	Complex<T> mul(const Complex<T>& n) const;
 
 	Complex<T> & add_eq(const Complex<T>& n);
-	Complex<T> & subtract_eq(const Complex<T>& n);
-	Complex<T> & multiply_eq(const Complex<T>& n);
+	Complex<T> & sub_eq(const Complex<T>& n);
+	Complex<T> & mul_eq(const Complex<T>& n);
 public:
 	T real, imag;
 	Complex_Base(T real, T imag);
 
 	Complex<T> conj() const;
-	Complex<T> operator-() const;
+	Complex<T> neg() const;
 };
 
 template<typename T>
@@ -39,7 +39,7 @@ Complex<T> Complex_Base<T>::add(const Complex<T>& n) const {
 }
 
 template<typename T>
-Complex<T> Complex_Base<T>::subtract(const Complex<T>& n) const {
+Complex<T> Complex_Base<T>::sub(const Complex<T>& n) const {
 	return Complex<T>{
 		this->real - n.real,
 		this->imag - n.imag
@@ -47,7 +47,7 @@ Complex<T> Complex_Base<T>::subtract(const Complex<T>& n) const {
 }
 
 template<typename T>
-Complex<T> Complex_Base<T>::multiply(const Complex<T>& n) const {
+Complex<T> Complex_Base<T>::mul(const Complex<T>& n) const {
 	return Complex<T>{
 		this->real * n.real - this->imag * n.imag,
 		this->real * n.imag + this->imag * n.real
@@ -62,14 +62,14 @@ Complex<T>& Complex_Base<T>::add_eq(const Complex<T>& n) {
 }
 
 template<typename T>
-Complex<T>& Complex_Base<T>::subtract_eq(const Complex<T>& n) {
+Complex<T>& Complex_Base<T>::sub_eq(const Complex<T>& n) {
 	this->real -= n.real;
 	this->imag -= n.imag;
 	return *this;
 }
 
 template<typename T>
-Complex<T>& Complex_Base<T>::multiply_eq(const Complex<T>& n) {
+Complex<T>& Complex_Base<T>::mul_eq(const Complex<T>& n) {
 	T temp_real = std::move(this->real);
 	this->real = temp_real * n.real - this->imag * n.imag;
 	this->imag = temp_real * n.imag + this->imag * n.real;
@@ -85,7 +85,7 @@ Complex<T> Complex_Base<T>::conj() const {
 }
 
 template<typename T>
-Complex<T> Complex_Base<T>::operator-() const {
+Complex<T> Complex_Base<T>::neg() const {
 	return Complex<T>(-this->real, -this->imag);
 }
 
@@ -105,6 +105,16 @@ Complex<T>::Complex(const Complex_Base<T>& c) : Complex_Base<T>(c.real, c.imag) 
 
 template<typename T>
 Complex<T>::Complex(Complex_Base<T> c) : Complex_Base<T>(c.real, c.imag) {}
+
+template<typename T, typename V>
+Complex<T> operator+(const Complex<T>& c, const V& n) {
+	return Complex<T>(c.real + n, c.imag);
+}
+
+template<typename T, typename V>
+Complex<T> operator-(const Complex<T>& c, const V& n) {
+	return Complex<T>(c.real + n, c.imag);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //                         Template Specializations                           //
@@ -126,14 +136,7 @@ public:
 
 Complex<Integer> operator*(const Complex<Integer>& c, const Integer& n);
 Complex<Integer> operator*(const Integer& n, const Complex<Integer>& c);
-Complex<Rational> operator*(const Complex<Integer>& c, const Rational& n);
-Complex<Rational> operator*(const Rational& n, const Complex<Integer>& c);
-
 Complex<Rational> operator/(const Complex<Integer>& c, const Integer& n);
-//Complex<Rational> operator/(const Complex<Integer>& c, const Rational& n);
-//Complex<Algebraic> operator*(const Complex<Integer>& c, const Algebraic& n);
-//Complex<Algebraic> operator/(const Complex<Integer>& c, const Algebraic& n);
-
 Complex<Rational> operator/(const Complex<Integer>& numerator, const Complex<Integer>& denominator);
 
 template<> class Complex<Rational> :
@@ -151,8 +154,8 @@ public:
 	Algebraic magnitude() const;
 	Complex<Algebraic> normalized() const;
 
-	void operator*=(const Rational& n);
-	void operator/=(const Rational& n);
+	Complex<Rational>& operator*=(const Rational& n);
+	Complex<Rational>& operator/=(const Rational& n);
 };
 
 Complex<Rational> operator*(const Complex<Rational>& c, const Rational& n);
@@ -160,10 +163,6 @@ Complex<Rational> operator/(const Complex<Rational>& c, const Rational& n);
 Complex<Rational> operator*(const Rational& n, const Complex<Rational>& c);
 Complex<Rational> operator/(const Rational& n, const Complex<Rational>& c);
 
-//Complex<Algebraic> operator*(const Complex<Rational>& c, const Algebraic& n);
-//Complex<Algebraic> operator/(const Complex<Rational>& c, const Algebraic& n);
-//Complex<Algebraic> operator*(const Algebraic& n, const Complex<Rational>& c);
-//Complex<Algebraic> operator/(const Algebraic& n, const Complex<Rational>& c);
 
 template<> class Complex<Algebraic> :
 	public Complex_Base<Algebraic>,
@@ -181,10 +180,10 @@ public:
 	Algebraic magnitude() const;
 	Complex<Algebraic> normalized() const;
 
-	void normalize();
+	Complex<Algebraic>& normalize();
 
-	void operator*=(const Algebraic& n);
-	void operator/=(const Algebraic& n);
+	Complex<Algebraic>& operator*=(const Algebraic& n);
+	Complex<Algebraic>& operator/=(const Algebraic& n);
 };
 
 Complex<Algebraic> operator*(const Complex<Algebraic>& c, const Algebraic& n);
@@ -196,8 +195,6 @@ template<> class Complex<Floating_Point> :
 	public Complex_Base<Floating_Point>,
 	public Field<Complex<Floating_Point>>
 {
-public:
-	Floating_Point real, imag;
 private:
 	Complex<Floating_Point> divide(const Complex<Floating_Point>& n) const;
 	void divide_eq(const Complex<Floating_Point>& n) const;
@@ -210,8 +207,16 @@ public:
 	Floating_Point magnitude() const;
 	Floating_Point square_magnitude() const;
 	Complex<Floating_Point> normalized() const;
-	void normalize();
+	Complex<Floating_Point>& normalize();
+
+	Complex<Floating_Point>& operator*=(const Floating_Point& n);
+	Complex<Floating_Point>& operator/=(const Floating_Point& n);
 };
+
+Complex<Floating_Point> operator*(const Complex<Floating_Point>& c, const Floating_Point& n);
+Complex<Floating_Point> operator/(const Complex<Floating_Point>& c, const Floating_Point& n);
+Complex<Floating_Point> operator*(const Floating_Point& n, const Complex<Floating_Point>& c);
+Complex<Floating_Point> operator/(const Floating_Point& n, const Complex<Floating_Point>& c);
 
 }
 #endif
