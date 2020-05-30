@@ -15,6 +15,5 @@ file(GLOB TEST_SOURCES "${CMAKE_SOURCE_DIR}/tests/*.cpp")
 #Generate the static library from the sources
 add_library(tunl STATIC ${SOURCES})
 
-add_executable(run-tunl-tests ${TEST_SOURCES})
-
-target_link_libraries(run-tunl-tests tunl)
+add_executable(integration-test "${CMAKE_SOURCE_DIR}/tests/integration.cpp")
+target_link_libraries(integration-test tunl)

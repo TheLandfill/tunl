@@ -26,12 +26,14 @@ def gen_toolchain(toolchains):
                 subprocess.run(['cmake', '-DCMAKE_BUILD_TYPE=Debug', '-DCMAKE_TOOLCHAIN_FILE=../toolchain.cmake', '../../../'])
 
 def create_cur_toolchain_symlink(toolchain):
-    if os.path.isfile('Debug'):
-        os.remove('Debug')
-    if os.path.isfile('Release'):
-        os.remove('Release')
-    os.symlink(toolchain + '/Debug', 'Debug', target_is_directory=True)
-    os.symlink(toolchain + '/Release', 'Release', target_is_directory=True)
+    debug_link = "../Debug"
+    release_link = "../Release"
+    if os.path.islink(debug_link):
+        os.remove(debug_link)
+    if os.path.islink(release_link):
+        os.remove(release_link)
+    os.symlink('bin/' + toolchain + '/Debug', debug_link, target_is_directory=True)
+    os.symlink('bin/' + toolchain + '/Release', release_link, target_is_directory=True)
 
 
 if __name__ == "__main__":
