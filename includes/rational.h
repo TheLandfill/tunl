@@ -6,8 +6,19 @@
 namespace tunl {
 
 class Rational : public Field<Rational> {
-private:
+public:
+	Rational add(const Rational& n) const;
+	Rational & add_eq(const Rational& n);
 
+	Rational neg() const;
+	Rational sub(const Rational& n) const;
+	Rational & sub_eq(const Rational& n);
+
+	Rational mul(const Rational& n) const;
+	Rational & mul_eq(const Rational& n);
+
+	Rational div(const Rational& n) const;
+	Rational & div_eq(const Rational& n);
 public:
 	Rational(const Integer numerator, const Integer denominator);
 	Rational(const Integer n);
