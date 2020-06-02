@@ -3,9 +3,14 @@
 #include "algebraic_structure.h"
 #include "integer.h"
 
+#include <string>
+
 namespace tunl {
 
-class Rational : public Field<Rational> {
+class Rational :
+	public Field<Rational>,
+	public Comparable<Rational>
+{
 public:
 	Rational add(const Rational& n) const;
 	Rational & add_eq(const Rational& n);
@@ -19,9 +24,14 @@ public:
 
 	Rational div(const Rational& n) const;
 	Rational & div_eq(const Rational& n);
+
+	bool equals(const Rational& n) const;
+	bool less_than(const Rational& n) const;
 public:
 	Rational(const Integer numerator, const Integer denominator);
 	Rational(const Integer n);
+
+	operator std::string();
 };
 
 Rational operator*(const Rational& i, const Rational& r);
