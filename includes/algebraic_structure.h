@@ -45,5 +45,33 @@ public:
 	}
 };
 
+template<typename T>
+class Comparable {
+public:
+	bool operator==(const T& n) const {
+		return static_cast<const T*>(this)->equals(n);
+	}
+
+	bool operator!=(const T& n) const {
+		return !(*this == n);
+	}
+
+	bool operator<(const T& n) const {
+		return static_cast<const T*>(this)->less_than(n);
+	}
+
+	bool operator>(const T& n) const {
+		return !(*this < n || *this == n);
+	}
+
+	bool operator<=(const T& n) const {
+		return (*this < n || *this == n);
+	}
+
+	bool operator>=(const T& n) const {
+		return !(*this < n);
+	}
+};
+
 }
 #endif

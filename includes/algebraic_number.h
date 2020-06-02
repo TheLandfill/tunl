@@ -4,9 +4,14 @@
 #include "integer.h"
 #include "rational.h"
 
+#include <string>
+
 namespace tunl {
 
-class Algebraic : public Field<Algebraic> {
+class Algebraic :
+	public Field<Algebraic>,
+	public Comparable<Algebraic>
+{
 public:
 	Algebraic add(const Algebraic& n) const;
 	Algebraic & add_eq(const Algebraic& n);
@@ -20,9 +25,14 @@ public:
 
 	Algebraic div(const Algebraic& n) const;
 	Algebraic & div_eq(const Algebraic& n);
+
+	bool equals(const Algebraic& n) const;
+	bool less_than(const Algebraic& n) const;
 public:
 	Algebraic(const Integer n);
 	Algebraic(const Rational n);
+
+	operator std::string();
 };
 
 Algebraic power(const Algebraic& x, Rational r);
