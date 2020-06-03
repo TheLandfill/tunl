@@ -7,8 +7,8 @@ namespace tunl {
 ////////////////////////////////////////////////////////////////////////////////
 
 #define GEN_COMPLEX_CONSTRUCTOR(TYPE)\
-Complex<TYPE>::Complex(const TYPE r, const TYPE i) :\
-	Complex_Base<TYPE>(r, i) {}
+Complex<TYPE>::Complex(const TYPE r, const TYPE i, const bool use_j) :\
+	Complex_Base<TYPE>(r, i, use_j) {}
 
 #define GEN_COMPLEX_CONVERSION(TYPE1, TYPE2)\
 Complex<TYPE1>::Complex(const Complex<TYPE2> c) :\
