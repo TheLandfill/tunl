@@ -12,6 +12,6 @@ file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 add_library(tunl STATIC ${SOURCES})
 
 add_executable(integration-test "${CMAKE_SOURCE_DIR}/tests/integration.cpp")
-add_executable(complex-test "${CMAKE_SOURCE_DIR}/tests/complex.cpp")
+#add_executable(complex-test "${CMAKE_SOURCE_DIR}/tests/complex.cpp")
 
 target_link_libraries(integration-test tunl)
