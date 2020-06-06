@@ -13,9 +13,9 @@ performance critical code, you're probably better off using another library.
 	-	On Windows, open the Ubuntu or Debian App (probably Ubuntu) and run the
 		commands
 		```bash
-			$ ln -s /mnt/c/Users/[user] ~/win-home
-			$ mkdir -p ~/win-home/dev/
-			$ cd ~/win-home/dev/
+			joseph@computer:tunl$ ln -s /mnt/c/Users/[user] ~/win-home
+			joseph@computer:tunl$ mkdir -p ~/win-home/dev/
+			joseph@computer:tunl$ cd ~/win-home/dev/
 		```
 		where [user] is your username on your Windows computer. We're just
 		creating a directory where you can put your projects that should be easy
@@ -23,21 +23,21 @@ performance critical code, you're probably better off using another library.
 	-	On Linux/Mac, open the Terminal or Terminal Emulator and run the
 		commands
 		```bash
-			$ mkdir -p ~/dev/
-			$ cd ~/dev/
+			joseph@computer:tunl$ mkdir -p ~/dev/
+			joseph@computer:tunl$ cd ~/dev/
 		```
 	Then type the following command on Windows, MacOS, or Linux.
 	```bash
-		$ git clone https://github.com/[github username]/tunl.git
+		joseph@computer:tunl$ git clone https://github.com/[github username]/tunl.git
 	```
 	For example, I would type
 	```bash
-		$ git clone https://github.com/TheLandfill/tunl.git
+		joseph@computer:tunl$ git clone https://github.com/TheLandfill/tunl.git
 	```
 	since my username is TheLandfill and someone with the username `password` would
 	type
 	```bash
-		$ git clone https://github.com/password/tunl.git
+		joseph@computer:tunl$ git clone https://github.com/password/tunl.git
 	```
 1.	[Follow the instructions on setting up for C/C++ development](https://tuacm.com/blog/c-language/compilers-and-ides/#which-ide-to-use).
 	If you're on Windows and you followed the above steps, you can use the
@@ -49,13 +49,13 @@ performance critical code, you're probably better off using another library.
 1.	Run the following command so that you can stay up to date with the main
 	repository:
 	```bash
-		$ git remote add upstream https://github.com/TheLandfill/tunl.git
+		joseph@computer:tunl$ git remote add upstream https://github.com/TheLandfill/tunl.git
 	```
 	You should only ever need to use the upstream master branch, which you can
 	get using
 	```bash
-		$ git checkout master
-		$ git pull upstream master
+		joseph@computer:tunl$ git checkout master
+		joseph@computer:tunl$ git pull upstream master
 	```
 1.  You should now have downloaded the project and are ready to work on it. If
 	you're on Windows, you'll find the project files in the directory
@@ -71,13 +71,13 @@ model](https://guides.github.com/introduction/flow/), which consists of
 	you want to implement the Matrix class. In which case, you would create a
 	branch called `matrix` and switch to it using:
 	```bash
-		$ git checkout -b matrix
+		joseph@computer:tunl$ git checkout -b matrix
 	```
 1.	Make the necessary additions, changes, and deletions to the files/code. Make
 	sure to make a commit whenever you make a change that you would hate to have
 	to reimplement if you delete it. Your commit messages should be descriptive
 	enough for me to tell what you did. If you made a bunch of changes in a
-	commit, create a file (call it commit-file.txt and put it in the `dev/tunl/`
+	commit, create a file (call it `commit-file.txt` and put it in the `dev/tunl/`
 	directory) and write out the commit message in the format:
 	```text
 		One-Line Summary
@@ -88,13 +88,47 @@ model](https://guides.github.com/introduction/flow/), which consists of
 		3.	Third change
 		...
 	```
+	Making a commit consists of running `git add [files you want to add]`, then
+	running `git commit -m "Some message describing what you did if it was a
+	minor change"` or `git commit -F commit-file.txt` with the format above. For
+	example, let's say I add header guards to `matrix.h` and that's the only
+	change I made. In that case, I would run the following commands:
+	```bash
+		joseph@computer:tunl$ git status
+		On branch matrix
+		Your branch is up to date with 'origin/matrix'.
+
+		Changes not staged for commit:
+		(use "git add <file>..." to update what will be committed)
+		(use "git restore <file>..." to discard changes in working directory)
+			modified:   includes/matrix.h
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+		joseph@computer:tunl$ git add includes/matrix.h
+		joseph@computer:tunl$ git status
+		On branch matrix
+		Your branch is up to date with 'origin/master'.
+
+		Changes to be committed:
+		(use "git restore --staged <file>..." to unstage)
+			modified:   includes/matrix.h
+		joseph@computer:tunl$ git commit -m "Added header guards to includes/matrix.h"
+		[matrix a1d6c56] Added header guards to includes/matrix.h
+		 1 file changed, 3 insertions(+)
+	```
+	If, instead, I made a bunch of changes, I would edit the file
+	`tunl/commit-file.txt` using the above format and replace the `git commit`
+	command above with
+	```bash
+		joseph@computer:tunl$ git commit -F commit-file.txt
+	```
 1.	Every so often, run the commands (I'm assuming you're on the branch
 	`matrix`. If not, replace `matrix` with the name of the branch.)
 	```bash
-		$ git checkout master
-		$ git pull upstream master
-		$ git checkout matrix
-		$ git merge master
+		joseph@computer:tunl$ git checkout master
+		joseph@computer:tunl$ git pull upstream master
+		joseph@computer:tunl$ git checkout matrix
+		joseph@computer:tunl$ git merge master
 	```
 	to make sure you're as up to date as possible. You don't want to be twenty
 	commits behind and have to incorporate a bunch of changes into your branch
@@ -107,10 +141,10 @@ model](https://guides.github.com/introduction/flow/), which consists of
 	`matrix` with the name of the branch.):
 	1.	First, run the commands:
 		```bash
-			$ git checkout master
-			$ git pull upstream master
-			$ git checkout matrix
-			$ git merge master
+			joseph@computer:tunl$ git checkout master
+			joseph@computer:tunl$ git pull upstream master
+			joseph@computer:tunl$ git checkout matrix
+			joseph@computer:tunl$ git merge master
 		```
 	Note that merging `master` with your current branch was a recommendation in
 	the previous step, but **merging `master` with your current branch is
@@ -122,10 +156,10 @@ model](https://guides.github.com/introduction/flow/), which consists of
 1.	Fix anything that needs to be fixed while continuing to keep your branch up
 	to date with master by running the commands
 	```bash
-		$ git checkout master
-		$ git pull upstream master
-		$ git checkout matrix
-		$ git merge master
+		joseph@computer:tunl$ git checkout master
+		joseph@computer:tunl$ git pull upstream master
+		joseph@computer:tunl$ git checkout matrix
+		joseph@computer:tunl$ git merge master
 	```
 	and taking care of any merge conflicts.
 1.	Compile everything and run the tests to make sure everything is working.
